@@ -46,8 +46,11 @@ public class ExcelGenerate {
 
 
         Row row = newSheet.createRow(0);
-        row.setHeightInPoints(30);
-        row.createCell(0).setCellValue("Климатические условия" + "\n" +  "Температура");
+        row.setHeightInPoints(20);
+        String YEar = "";
+        if (YearRate == 1) YEar = " с повторяемостью 1 раз в 10 лет";
+        else if (YearRate == 2) YEar = " с повторяемостью 1 раз в 25 лет";
+        row.createCell(0).setCellValue("Климатические условия: " + "Ветровой район: " + WindReg + YEar + ", Толщина стенки гололёда: " + IceThick + " мм");
 
         Row row1 = newSheet.createRow(1);
         row1.createCell(0).setCellValue("Пролет, м");
@@ -91,6 +94,17 @@ public class ExcelGenerate {
             rowC.createCell(j).setCellValue(MyF.format(Calc.getSagIce()));
 
         }
+//        DistCount += 2;
+//        int offset = 8;
+//        for (int z = 0; z < 8; z++) {
+//            newSheet.addMergedRegion(new CellRangeAddress(DistCount + offset + z, DistCount + offset + z, 0, 3));
+//        }
+//        for (int v = 0; v < 4; v++) {
+//            for (int z = 0; z < 8; z++) {
+//                newSheet.addMergedRegion(new CellRangeAddress(DistCount + offset + z, DistCount + offset + z, 4 + v * 2, 5 + v * 2));
+//            }
+//        }
+//        Row ModeHeader = newSheet.createRow(DistCount + offset);
 
         File theDir = new File(FilePath);
         theDir.mkdirs();

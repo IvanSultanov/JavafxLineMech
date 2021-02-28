@@ -3,9 +3,7 @@ import MechanicCalculations.ExcelGenerate;
 import MechanicCalculations.WireMechLoad;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class Controller {
 
@@ -82,6 +80,12 @@ public class Controller {
     private Label OutputMessage;
 
     @FXML
+    private RadioButton YearRate25;
+
+    @FXML
+    private RadioButton YearRate10;
+
+    @FXML
     protected void initialize() {
         KabWeight.textProperty().addListener((observable, oldValue, newValue) -> { if (newValue.matches("\\d*|\\d+[.]\\d*")) return; KabWeight.setText(oldValue.replace("", "")); });
         KabDiam.textProperty().addListener((observable, oldValue, newValue) -> { if (newValue.matches("\\d*|\\d+[.]\\d*")) return; KabDiam.setText(oldValue.replace("", "")); });
@@ -103,6 +107,15 @@ public class Controller {
         InitDist.textProperty().addListener((observable, oldValue, newValue) -> { if (newValue.matches("\\d*")) return; InitDist.setText(oldValue.replace("", "")); });
         DistStep.textProperty().addListener((observable, oldValue, newValue) -> { if (newValue.matches("\\d*")) return; DistStep.setText(oldValue.replace("", "")); });
         DistCount.textProperty().addListener((observable, oldValue, newValue) -> { if (newValue.matches("\\d*")) return; DistCount.setText(oldValue.replace("", "")); });
+        ToggleGroup YearRate = new ToggleGroup();
+        YearRate10.setToggleGroup(YearRate);
+        YearRate25.setToggleGroup(YearRate);
+//        YearRate.selectedToggleProperty().addListener((observable, oldVal, newVal) -> { System.out.println(YearRate10.isSelected());
+//            System.out.println(YearRate25.isSelected());
+//        if (newVal.equals(YearRate10)) System.out.println("1");
+//        if (newVal.equals(YearRate25)) System.out.println("1");
+//        });
+
 
     }
 
@@ -110,18 +123,20 @@ public class Controller {
 
     @FXML
     protected void onClick(ActionEvent event) {
-
+        int YearRateNumb = 0;
+        if (YearRate10.isSelected()) YearRateNumb  = 1;
+        if (YearRate25.isSelected()) YearRateNumb  = 2;
         ExcelGenerate NewTable = new ExcelGenerate();
-        NewTable.MountTableCalc(Integer.parseInt(InitDist.getText()), Integer.parseInt(DistStep.getText()), Integer.parseInt(DistCount.getText()), Integer.parseInt(WindReg.getText()),1, Double.parseDouble(IceThick.getText()),
+        NewTable.MountTableCalc(Integer.parseInt(InitDist.getText()), Integer.parseInt(DistStep.getText()), Integer.parseInt(DistCount.getText()), Integer.parseInt(WindReg.getText()),YearRateNumb, Double.parseDouble(IceThick.getText()),
                 Double.parseDouble(KabWeight.getText()), Double.parseDouble(KabDiam.getText()), Double.parseDouble(CrosSec.getText()), Double.parseDouble(MaxTens.getText()),
                 Double.parseDouble(MaxTens.getText()), Double.parseDouble(AverTens.getText()), Double.parseDouble(ElastMod.getText()), Double.parseDouble(KLTE.getText()),
                 Integer.parseInt(Tmin.getText()), Integer.parseInt(Tmax.getText()), Integer.parseInt(T_aver.getText()), Integer.parseInt(T_ice.getText()), Integer.parseInt(T_step.getText()),
                 FilePath.getText(), FileName.getText(), N, Double.parseDouble(K_wind.getText()), Double.parseDouble(K_ice.getText()));
-
         if (NewTable.getFileStatus()) {
             OutputMessage.setText("Файл " + FileName.getText() + "_" + N + " успешно сохранен");
             N++;
         } else OutputMessage.setText("Что-то пошло не так...");
+        System.out.println(YearRateNumb);
     }
 
 }

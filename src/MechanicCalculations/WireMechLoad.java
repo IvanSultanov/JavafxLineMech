@@ -267,6 +267,22 @@ public void ModeCalc (double Yref, double Ttef, double Gref) {
     SagMode6 = Sag(y1, LoadMode6);
     SagMode7 = Sag(y1, LoadMode7);
 }
+public double getLoadMode1 () { return LoadMode1; }
+public double getLoadMode2 () { return LoadMode2; }
+public double getLoadMode3 () { return LoadMode3; }
+public double getLoadMode4 () { return LoadMode4; }
+public double getLoadMode5 () { return LoadMode5; }
+public double getLoadMode6 () { return LoadMode6; }
+public double getLoadMode7 () { return LoadMode7; }
+public double getSagMode1 () { return SagMode1; }
+public double getSagMode2 () { return SagMode2; }
+public double getSagMode3 () { return SagMode3; }
+public double getSagMode4 () { return SagMode4; }
+public double getSagMode5 () { return SagMode5; }
+public double getSagMode6 () { return SagMode6; }
+public double getSagMode7 () { return SagMode7; }
+
+
     public void MountCalc (double Yref, double Ttef, double Gref) {
         double MountLoad, Sag, Tension;
         System.out.println("Монтажная таблица:");
