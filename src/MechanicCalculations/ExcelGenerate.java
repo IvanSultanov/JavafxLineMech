@@ -21,9 +21,9 @@ public class ExcelGenerate {
                 YearRate, IceThick, Weight, Diam, CrosSec,
                 MaxTens, LowTempTens, AverTens, ElastM, KLTE, tmin, tmax, taverage, Tice);
 
-        WireMechLoad Calc1 = new WireMechLoad((InitDist + (DistCount - 1) * DistStep), 4,
-                1, 20, 2428, 29.2, 501.89,
-                25.4, 25.4, 16.9, 11400, 15.5, -40, 40, 5, -5);
+        WireMechLoad Calc1 = new WireMechLoad((InitDist + (DistCount - 1) * DistStep), WindReg,
+                YearRate, IceThick, Weight, Diam, CrosSec,
+                MaxTens, LowTempTens, AverTens, ElastM, KLTE, tmin, tmax, taverage, Tice);
 
 
         Workbook Book = new XSSFWorkbook();
@@ -107,7 +107,7 @@ public class ExcelGenerate {
             }
         }
         Row ModeHeader = newSheet.createRow(offset);
-        ModeHeader.createCell(0).setCellValue("Режим для пролёта " + (InitDist + (DistCount - 1) * DistStep) + "м");
+        ModeHeader.createCell(0).setCellValue("Режимы для пролёта " + (InitDist + (DistCount - 1) * DistStep) + "м");
         ModeHeader.createCell(4).setCellValue("σ, кгс/м*мм2");
         ModeHeader.createCell(6).setCellValue("Тяжение, кг");
         ModeHeader.createCell(8).setCellValue("Стрела верт., м");

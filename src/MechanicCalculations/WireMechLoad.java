@@ -231,7 +231,7 @@ public double LoadCalc (double y, double yRef, double t, double tRef, double Gre
                     + (KLTE * ElastM * (t - tRef));
 //            System.out.println("G " + G);
 //            System.out.println("X " + X);
-            G = G + 0.01;
+            G = G + 0.001;
             if (X > 0) {
                 break;
             }

@@ -118,7 +118,7 @@ public class MountTable extends WireMechLoad {
             X = G - ((y * y * ElastM * Distance * Distance) / (24 * G * G))
                     - Gref + ((Math.pow(yRef, 2) * ElastM * Distance * Distance) / (24 * Gref * Gref))
                     + (KLTE * ElastM * (t - tRef));
-            G = G + 0.01;
+            G = G + 0.001;
             if (X > 0) {
                 break;
             }
