@@ -21,7 +21,7 @@ public class ExcelGenerate {
                 YearRate, IceThick, Weight, Diam, CrosSec,
                 MaxTens, LowTempTens, AverTens, ElastM, KLTE, tmin, tmax, taverage, Tice);
 
-        WireMechLoad Calc4 = new WireMechLoad(300, 4,
+        WireMechLoad Calc1 = new WireMechLoad((InitDist + (DistCount - 1) * DistStep), 4,
                 1, 20, 2428, 29.2, 501.89,
                 25.4, 25.4, 16.9, 11400, 15.5, -40, 40, 5, -5);
 
@@ -94,17 +94,57 @@ public class ExcelGenerate {
             rowC.createCell(j).setCellValue(MyF.format(Calc.getSagIce()));
 
         }
-//        DistCount += 2;
-//        int offset = 8;
-//        for (int z = 0; z < 8; z++) {
-//            newSheet.addMergedRegion(new CellRangeAddress(DistCount + offset + z, DistCount + offset + z, 0, 3));
-//        }
-//        for (int v = 0; v < 4; v++) {
-//            for (int z = 0; z < 8; z++) {
-//                newSheet.addMergedRegion(new CellRangeAddress(DistCount + offset + z, DistCount + offset + z, 4 + v * 2, 5 + v * 2));
-//            }
-//        }
-//        Row ModeHeader = newSheet.createRow(DistCount + offset);
+
+        Calc1.Calculation();
+
+        int offset = DistCount + 8;
+        for (int z = 0; z < 6; z++) {
+            newSheet.addMergedRegion(new CellRangeAddress(offset + z, offset + z, 0, 3));
+        }
+        for (int v = 0; v < 4; v++) {
+            for (int z = 0; z < 6; z++) {
+                newSheet.addMergedRegion(new CellRangeAddress(offset + z, offset + z, 4 + v * 2, 5 + v * 2));
+            }
+        }
+        Row ModeHeader = newSheet.createRow(offset);
+        ModeHeader.createCell(0).setCellValue("Режим для пролета: " + (InitDist + (DistCount - 1) * DistStep) + "м");
+        ModeHeader.createCell(4).setCellValue("σ, кгс/м*мм2");
+        ModeHeader.createCell(6).setCellValue("Тяжение, кг");
+        ModeHeader.createCell(8).setCellValue("Стрела верт., м");
+        ModeHeader.createCell(10).setCellValue("Стрела горизонт., м");
+        System.out.println("InitDist= " + InitDist);
+        System.out.println("DistCount= " + DistCount);
+        System.out.println("DistStep= " + DistStep);
+
+        Row Mode1 = newSheet.createRow(offset + 2);
+        Mode1.createCell(0).setCellValue("Гололёд, t = -5, ветер 0,25q");
+        Mode1.createCell(4).setCellValue(MyF.format(Calc1.getLoadMode1()));
+        Mode1.createCell(6).setCellValue(MyF.format(Calc1.getLoadMode1() * CrosSec));
+        Mode1.createCell(8).setCellValue(MyF.format(Calc1.getSagMode1V()));
+        Mode1.createCell(10).setCellValue(MyF.format(Calc1.getSagMode1H()));
+
+        Row Mode2 = newSheet.createRow(offset + 3);
+        Mode2.createCell(0).setCellValue("Гололёд, t = -5, ветера нет q=0");
+        Mode2.createCell(4).setCellValue(MyF.format(Calc1.getLoadMode2()));
+        Mode2.createCell(6).setCellValue(MyF.format(Calc1.getLoadMode2() * CrosSec));
+        Mode2.createCell(8).setCellValue(MyF.format(Calc1.getSagMode2()));
+        Mode2.createCell(10).setCellValue("0");
+
+        Row Mode3 = newSheet.createRow(offset + 4);
+        Mode3.createCell(0).setCellValue("Гололёда нет, t = -5, ветер q");
+        Mode3.createCell(4).setCellValue(MyF.format(Calc1.getLoadMode3()));
+        Mode3.createCell(6).setCellValue(MyF.format(Calc1.getLoadMode3() * CrosSec));
+        Mode3.createCell(8).setCellValue(MyF.format(Calc1.getSagMode3V()));
+        Mode3.createCell(10).setCellValue(MyF.format(Calc1.getSagMode3H()));
+
+        Row Mode4 = newSheet.createRow(offset + 5);
+        Mode4.createCell(0).setCellValue("Среднегодовая tэ = 5.0, ветра и голёда нет");
+        Mode4.createCell(4).setCellValue(MyF.format(Calc1.getLoadMode4()));
+        Mode4.createCell(6).setCellValue(MyF.format(Calc1.getLoadMode4() * CrosSec));
+        Mode4.createCell(8).setCellValue(MyF.format(Calc1.getSagMode4()));
+        Mode4.createCell(10).setCellValue("0");
+
+
 
         File theDir = new File(FilePath);
         theDir.mkdirs();
@@ -120,7 +160,7 @@ public class ExcelGenerate {
             System.out.println("Что-то пошло не так");
             FileCreated = false;
         }
-        Calc4.getCalculation();
+        Calc1.getCalculation();
     }
     public boolean getFileStatus () {
         return FileCreated;

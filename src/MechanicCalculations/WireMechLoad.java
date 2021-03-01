@@ -274,9 +274,15 @@ public double getLoadMode4 () { return LoadMode4; }
 public double getLoadMode5 () { return LoadMode5; }
 public double getLoadMode6 () { return LoadMode6; }
 public double getLoadMode7 () { return LoadMode7; }
-public double getSagMode1 () { return SagMode1; }
+
+public double getSagMode1V () { return (SagMode1 * p3 / p7); }
+public double getSagMode1H () { return (SagMode1 * p5 / p7); }
+
 public double getSagMode2 () { return SagMode2; }
-public double getSagMode3 () { return SagMode3; }
+
+public double getSagMode3V () { return (SagMode3 * p1 / p6); }
+public double getSagMode3H () { return (SagMode3 * p4 / p6); }
+
 public double getSagMode4 () { return SagMode4; }
 public double getSagMode5 () { return SagMode5; }
 public double getSagMode6 () { return SagMode6; }

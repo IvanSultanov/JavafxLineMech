@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="3.0" prefHeight="26.0" prefWidth="366.0" text="Механический расчёт проводов и тросов" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="button1" layoutX="782.0" layoutY="428.0" mnemonicParsing="false" onAction="#onClick" prefHeight="37.0" prefWidth="174.0" text="Расчёт" />
+      <TextField fx:id="KabWeight" layoutX="168.0" layoutY="100.0" prefHeight="26.0" prefWidth="102.0" text="2428">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="KabDiam" layoutX="168.0" layoutY="130.0" prefHeight="8.0" prefWidth="102.0" text="29.2" />
+      <TextField fx:id="CrosSec" layoutX="168.0" layoutY="159.0" prefHeight="26.0" prefWidth="102.0" text="501.89" />
+      <TextField fx:id="TensLimit" layoutX="168.0" layoutY="188.0" prefHeight="26.0" prefWidth="102.0" promptText="Пока не используется">
+         <font>
+            <Font size="9.0" />
+         </font></TextField>
+      <TextField fx:id="MaxTens" layoutX="168.0" layoutY="217.0" prefHeight="26.0" prefWidth="102.0" text="25.4" />
+      <TextField fx:id="AverTens" layoutX="168.0" layoutY="245.0" prefHeight="26.0" prefWidth="102.0" text="16.9" />
+      <TextField fx:id="ElastMod" layoutX="168.0" layoutY="274.0" prefHeight="26.0" prefWidth="102.0" text="11400" />
+      <TextField fx:id="KLTE" layoutX="168.0" layoutY="303.0" prefHeight="26.0" prefWidth="102.0" text="15.5" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="64.0" prefHeight="16.0" prefWidth="163.0" text="Характеристики провода" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="106.0" prefHeight="16.0" prefWidth="71.0" text="Масса, кг/км" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="79.0" layoutY="135.0" prefHeight="16.0" prefWidth="90.0" text="Диаметр, мм" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="164.0" prefHeight="16.0" prefWidth="82.0" text="Сечение, мм2" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="62.0" layoutY="219.0" prefHeight="22.0" prefWidth="17.0" text="σ" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="222.0" prefHeight="16.0" prefWidth="81.0" text="max, даН/мм2" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="248.0" prefHeight="22.0" prefWidth="17.0" text="σ" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="91.0" layoutY="251.0" prefHeight="16.0" prefWidth="71.0" text="сэ, даН/мм2" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="279.0" prefHeight="16.0" prefWidth="155.0" text="Модуль упругости, кН/мм2" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="308.0" prefHeight="16.0" prefWidth="90.0" text="ТКЛР, *10-6 1/К" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="191.0" prefHeight="22.0" prefWidth="17.0" text="σ" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="193.0" prefHeight="16.0" prefWidth="81.0" text="вр, даН/мм2" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="340.0" layoutY="64.0" prefHeight="16.0" prefWidth="163.0" text="Климатические условия" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Tmax" layoutX="400.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="102.0" text="40">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="334.0" layoutY="105.0" prefHeight="16.0" prefWidth="54.0" text="Тmax, °С " textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Tmin" layoutX="400.0" layoutY="130.0" prefHeight="8.0" prefWidth="102.0" text="-40" />
+      <TextField fx:id="T_aver" layoutX="400.0" layoutY="159.0" prefHeight="26.0" prefWidth="102.0" text="5" />
+      <TextField fx:id="T_ice" layoutX="400.0" layoutY="188.0" prefHeight="26.0" prefWidth="102.0" text="-5" />
+      <TextField fx:id="WindReg" layoutX="400.0" layoutY="246.0" prefHeight="26.0" prefWidth="102.0" text="4" />
+      <TextField fx:id="IceThick" layoutX="400.0" layoutY="274.0" prefHeight="26.0" prefWidth="102.0" text="20" />
+      <TextField fx:id="K_wind" layoutX="400.0" layoutY="303.0" prefHeight="26.0" prefWidth="102.0" text="1.3" />
+      <TextField fx:id="K_ice" layoutX="400.0" layoutY="332.0" prefHeight="26.0" prefWidth="102.0" text="1.2" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="135.0" prefHeight="16.0" prefWidth="47.0" text="Tmin, °С" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="340.0" layoutY="164.0" prefHeight="16.0" prefWidth="47.0" text="Tсэ, °С" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="291.0" layoutY="251.0" prefHeight="16.0" prefWidth="102.0" text="Ветровой район" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="280.0" prefHeight="16.0" prefWidth="102.0" text="Гололёд, мм" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" layoutY="308.0" prefHeight="16.0" prefWidth="54.0" text="K_wind" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="345.0" layoutY="337.0" prefHeight="16.0" prefWidth="54.0" text="K_ice" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="327.0" layoutY="194.0" prefHeight="16.0" prefWidth="81.0" text="Тг, °С" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="InitDist" layoutX="782.0" layoutY="98.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="102.0" text="50">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="634.0" layoutY="103.0" prefHeight="16.0" prefWidth="137.0" text="Нач. длина пролета, м" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="DistStep" layoutX="782.0" layoutY="128.0" prefHeight="8.0" prefWidth="102.0" text="10" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="723.0" layoutY="133.0" prefHeight="16.0" prefWidth="47.0" text="Шаг, м" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="752.0" layoutY="64.0" prefHeight="16.0" prefWidth="163.0" text="Пролеты" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="DistCount" layoutX="782.0" layoutY="157.0" prefHeight="8.0" prefWidth="102.0" text="1" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="646.0" layoutY="161.0" prefHeight="16.0" prefWidth="126.0" text="Количество пролетов" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="T_step" layoutX="400.0" layoutY="217.0" prefHeight="26.0" prefWidth="102.0" text="5" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="334.0" layoutY="223.0" prefHeight="16.0" prefWidth="54.0" text="Шаг, °С" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="634.0" layoutY="223.0" prefHeight="16.0" prefWidth="330.0" text="Путь к сохраненному файлу (создается автоматически)" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FilePath" layoutX="640.0" layoutY="245.0" prefHeight="6.0" prefWidth="314.0" text="D:\_LineMech" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="634.0" layoutY="279.0" prefHeight="16.0" prefWidth="330.0" text="Имя файла" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FileName" layoutX="640.0" layoutY="301.0" prefHeight="6.0" prefWidth="314.0" text="Sags_calculation" />
+      <Label fx:id="OutputMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="345.0" prefHeight="16.0" prefWidth="330.0" text="......." textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="157.0" fitWidth="472.0" layoutX="6.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@src/pictures/Loads.png" />
+         </image>
+      </ImageView>
+      <RadioButton fx:id="YearRate25" layoutX="512.0" layoutY="262.0" mnemonicParsing="false" text="1 раз в 25 лет" />
+      <RadioButton fx:id="YearRate10" layoutX="512.0" layoutY="241.0" mnemonicParsing="false" selected="true" text="1 раз в 10 лет" />
+   </children>
+</AnchorPane>
