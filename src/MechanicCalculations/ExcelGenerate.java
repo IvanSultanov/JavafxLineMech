@@ -49,8 +49,8 @@ public class ExcelGenerate {
         row.setHeightInPoints(20);
         String YEar = "";
         if (YearRate == 1) YEar = " с повторяемостью 1 раз в 10 лет";
-        else if (YearRate == 2) YEar = " с повторяемостью 1 раз в 25 лет";
-        row.createCell(0).setCellValue("Климатические условия: " + "Ветровой район: " + WindReg + YEar + ", Толщина стенки гололёда: " + IceThick + " мм");
+        else if (YearRate == 2) YEar = ", с повторяемостью 1 раз в 25 лет";
+        row.createCell(0).setCellValue("Климатические условия: " + "Ветровой район: " + WindReg + YEar + " (q = " + Calc1.getWindPress() + " даН/м2, V = " + Calc1.getWindVelos() + ", м/с)" + " , Толщина стенки гололёда: " + IceThick + " мм");
 
         Row row1 = newSheet.createRow(1);
         row1.createCell(0).setCellValue("Пролет, м");
@@ -95,9 +95,9 @@ public class ExcelGenerate {
 
         }
 
-        Calc1.Calculation();
+        Calc1.Calculation(K_wind, K_ice);
 
-        int offset = DistCount + 8;
+        int offset = 3 * DistCount + 5;
         for (int z = 0; z < 6; z++) {
             newSheet.addMergedRegion(new CellRangeAddress(offset + z, offset + z, 0, 3));
         }
@@ -107,7 +107,7 @@ public class ExcelGenerate {
             }
         }
         Row ModeHeader = newSheet.createRow(offset);
-        ModeHeader.createCell(0).setCellValue("Режим для пролета: " + (InitDist + (DistCount - 1) * DistStep) + "м");
+        ModeHeader.createCell(0).setCellValue("Режим для пролёта " + (InitDist + (DistCount - 1) * DistStep) + "м");
         ModeHeader.createCell(4).setCellValue("σ, кгс/м*мм2");
         ModeHeader.createCell(6).setCellValue("Тяжение, кг");
         ModeHeader.createCell(8).setCellValue("Стрела верт., м");
@@ -160,7 +160,7 @@ public class ExcelGenerate {
             System.out.println("Что-то пошло не так");
             FileCreated = false;
         }
-        Calc1.getCalculation();
+
     }
     public boolean getFileStatus () {
         return FileCreated;
