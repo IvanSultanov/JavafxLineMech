@@ -87,12 +87,12 @@ public void Calculation (double K_wind, double K_ice) {
     if ((KabDiam < 20) | c > 0 ) Cx = 1.2;
     if ((KabDiam > 20) & c == 0 ) Cx = 1.1;
 
-
-    p1 = 0.980665 * KabWeight / 1000; // даН/м;
-    p2 = K_ice * 0.9 * Math.PI * c * (KabDiam + c) / 1000; // даН/м;
+//    0.980665
+    p1 = 1 * KabWeight / 1000; // даН/м;
+    p2 = K_ice * 0.9 * Math.PI * c * (KabDiam + c) * 0.980665 / 1000; // даН/м;
     p3 = p1 + p2; // даН/м;
-    p4 = alfa(q) * Cx * K_wind * q * KabDiam / 1000; // даН/м;
-    p5 = alfa((q * 0.25)) * Cx * K_wind * 0.25 * q * (KabDiam + 2 * c) / 1000; // даН/м;
+    p4 = alfa(q) * Cx * K_wind * K_wind(Distance) * q * KabDiam / 1000; // даН/м;
+    p5 = alfa((q * 0.25)) * Cx * K_wind * K_wind(Distance) * 0.25 * q * (KabDiam + 2 * c) / 1000; // даН/м;
     p6 = Math.sqrt(p1*p1 + p4*p4); // даН/м;
     p7 = Math.sqrt(p3*p3 + p5*p5); // даН/м;
 
@@ -185,44 +185,55 @@ public double alfa (double qVal) {
     if (qVal > 55 & qVal < 76) a = (0.75 + (0.7 - 0.75) * (qVal - 55) / (76 - 55));
     return a;
 }
+    // K_wind Поправочный коэффициент на ветер, зависяций от длины пролета;
+    public double K_wind (double Distance) {
+        double w = 0;
+        if (Distance <= 50) w = 1.2;
+        if (Distance == 100) w = 1.1;
+        if (Distance == 150) w = 1.05;
+        if (Distance >= 250) w = 1.0;
+        if (Distance > 50 & Distance < 100) w = (1.2 + (1.1 - 1.2) * (Distance - 50) / (100 - 50));
+        if (Distance> 100 & Distance < 150) w = (1.1 + (1.05 - 1.1) * (Distance - 100) / (150 - 100));
+        if (Distance > 150 & Distance < 250) w = (1.05 + (1.0 - 1.05) * (Distance - 150) / (250 - 150));
+        return w;
+    }
 
-//public void getCalculation () {
-//    System.out.print("Длина пролета: " + Distance + "\t");
-//    System.out.println("Сечение провода: " + CrSec + "\t");
-//    Calculation();
-//    System.out.println();
-//    System.out.println("p1 = " + Myformat2.format(p1) + "\t\t" + "y1 = " + Myformat2.format(y1));
-//    System.out.println("p2 = " + Myformat2.format(p2) + "\t\t" + "y2 = " + Myformat2.format(y2));
-//    System.out.println("p3 = " + Myformat2.format(p3) + "\t\t" + "y3 = " + Myformat2.format(y3));
-//    System.out.println("p4 = " + Myformat2.format(p4) + "\t\t" + "y4 = " + Myformat2.format(y4));
-//    System.out.println("p5 = " + Myformat2.format(p5) + "\t\t" + "y5 = " + Myformat2.format(y5));
-//    System.out.println("p6 = " + Myformat2.format(p6) + "\t\t" + "y6 = " + Myformat2.format(y6));
-//    System.out.println("p7 = " + Myformat2.format(p7) + "\t\t" + "y7 = " + Myformat2.format(y7));
-//    System.out.println("q = " + Myformat.format(q));
-//    System.out.println("a(q) = " + Myformat.format(alfa(q)));
-//    System.out.println("a(0.25q) = " + Myformat.format(alfa(q * 0.25)));
-//    System.out.println("Cx = " + Myformat.format(Cx));
-//    System.out.println("r = " + Myformat.format(r));
-//    System.out.println("y = " + Myformat.format(y));
-//    System.out.print("Режим 1 (Гололёд, t = -5, ветер 0,25q) \t\t\t\t" + Myformat.format(LoadMode1));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode1) + "\t" + Myformat.format(SagMode1 * p3 / p7));
-//    System.out.print("Режим 2 (Гололёд, t = -5, ветера нет q=0) \t\t\t" + Myformat.format(LoadMode2));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode2));
-//    System.out.print("Режим 3 (Гололёда нет, t = -5, ветер q) \t\t\t" + Myformat.format(LoadMode3));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode3) + "\t" + Myformat.format(SagMode1 * p1 / p6));
-//    System.out.print("Режим 4 (Среднегод. tэ = " + taverage + ", вет. и гол. нет) \t\t" + Myformat.format(LoadMode4));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode4));
-//    System.out.print("Режим 5 (t = +15, ветра и гол. нет) \t\t\t\t" + Myformat.format(LoadMode5));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode5));
-//    System.out.print("Режим 6 (t = " + tmin + " ветера и гололёда нет) \t\t\t" + Myformat.format(LoadMode6));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode6));
-//    System.out.print("Режим 7 (t = " + tmax + " ветера и гололёда нет) \t\t\t" + Myformat.format(LoadMode7));
-//    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode7));
-//    System.out.println();
-//}
+public void printCalculation () {
+    System.out.print("Длина пролета: " + Distance + "\t");
+    System.out.println("Сечение провода: " + CrSec + "\t");
+    System.out.println();
+    System.out.println("p1 = " + Myformat2.format(p1) + "\t\t" + "y1 = " + Myformat2.format(y1));
+    System.out.println("p2 = " + Myformat2.format(p2) + "\t\t" + "y2 = " + Myformat2.format(y2));
+    System.out.println("p3 = " + Myformat2.format(p3) + "\t\t" + "y3 = " + Myformat2.format(y3));
+    System.out.println("p4 = " + Myformat2.format(p4) + "\t\t" + "y4 = " + Myformat2.format(y4));
+    System.out.println("p5 = " + Myformat2.format(p5) + "\t\t" + "y5 = " + Myformat2.format(y5));
+    System.out.println("p6 = " + Myformat2.format(p6) + "\t\t" + "y6 = " + Myformat2.format(y6));
+    System.out.println("p7 = " + Myformat2.format(p7) + "\t\t" + "y7 = " + Myformat2.format(y7));
+    System.out.println("q = " + Myformat.format(q));
+    System.out.println("a(q) = " + Myformat.format(alfa(q)));
+    System.out.println("a(0.25q) = " + Myformat.format(alfa(q * 0.25)));
+    System.out.println("Cx = " + Myformat.format(Cx));
+    System.out.println("r = " + Myformat.format(r));
+    System.out.println("y = " + Myformat.format(y));
+    System.out.print("Режим 1 (Гололёд, t = -5, ветер 0,25q) \t\t\t\t" + Myformat.format(LoadMode1));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode1) + "\t" + Myformat.format(SagMode1 * p3 / p7));
+    System.out.print("Режим 2 (Гололёд, t = -5, ветера нет q=0) \t\t\t" + Myformat.format(LoadMode2));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode2));
+    System.out.print("Режим 3 (Гололёда нет, t = -5, ветер q) \t\t\t" + Myformat.format(LoadMode3));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode3) + "\t" + Myformat.format(SagMode1 * p1 / p6));
+    System.out.print("Режим 4 (Среднегод. tэ = " + taverage + ", вет. и гол. нет) \t\t" + Myformat.format(LoadMode4));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode4));
+    System.out.print("Режим 5 (t = +15, ветра и гол. нет) \t\t\t\t" + Myformat.format(LoadMode5));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode5));
+    System.out.print("Режим 6 (t = " + tmin + " ветера и гололёда нет) \t\t\t" + Myformat.format(LoadMode6));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode6));
+    System.out.print("Режим 7 (t = " + tmax + " ветера и гололёда нет) \t\t\t" + Myformat.format(LoadMode7));
+    System.out.println("\t\t" + "Провис, м = " + Myformat.format(SagMode7));
+    System.out.println();
+}
 
 public double LoadCalc (double y, double yRef, double t, double tRef, double Gref) {
-        double G = 1.00;
+        double G = 0.0001;
         double X;
 
         while (true) {
@@ -231,7 +242,7 @@ public double LoadCalc (double y, double yRef, double t, double tRef, double Gre
                     + (KLTE * ElastM * (t - tRef));
 //            System.out.println("G " + G);
 //            System.out.println("X " + X);
-            G = G + 0.001;
+            G = G + 0.0001;
             if (X > 0) {
                 break;
             }
@@ -239,15 +250,16 @@ public double LoadCalc (double y, double yRef, double t, double tRef, double Gre
         return G;
 }
 
-public double CritDist (double Gn, double Gm, double Yn, double Ym, double tn, double tm) {
+public double CritDist (double G1, double G2, double Y1, double Y2, double t1, double t2) {
         double Lk;
-        Lk = Math.sqrt(((Gn - Gm) + KLTE * ElastM * (tn - tm)) / (((Yn * Yn * ElastM) / (24 * Gn * Gn)) - ((Ym * Ym * ElastM) / (24 * Gm * Gm)) ));
+//        Lk = Math.sqrt(((G1 - G2) + KLTE * ElastM * (t1 - t2)) / (((Y1 * Y1 * ElastM) / (24 * G1 * G1)) - ((Y2 * Y2 * ElastM) / (24 * G2 * G2)) ));
+    Lk = (G2 / Y1) * Math.sqrt(((G2 - G1) + KLTE * ElastM * (t2 - t1)) / ((ElastM /24) * (Math.pow((Y2 / Y1), 2) - Math.pow((G2 / G1), 2))));
         return Lk;
 }
 
 public double Sag (double y, double Load) {
         double f;
-        f = y * Distance * Distance / (8 * Load);
+        f = (y * Distance * Distance) / (8 * Load);
         return f;
 }
 
@@ -266,6 +278,8 @@ public void ModeCalc (double Yref, double Ttef, double Gref) {
     SagMode5 = Sag(y1, LoadMode5);
     SagMode6 = Sag(y1, LoadMode6);
     SagMode7 = Sag(y1, LoadMode7);
+    System.out.println("Yref = " + Yref);
+    System.out.println("Gref = " + Gref);
 }
 public double getLoadMode1 () { return LoadMode1; }
 public double getLoadMode2 () { return LoadMode2; }

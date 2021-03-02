@@ -33,11 +33,11 @@ public class MountTable extends WireMechLoad {
 //        double K_ice = 1.000;
 //        double K_wind = 1.2;
 
-        p1 = 0.980665 * KabWeight / 1000; // даН/м;
-        p2 = K_ice * 0.9 * Math.PI * c * (KabDiam + c) / 1000; // даН/м;
+        p1 = 1 * KabWeight / 1000; // даН/м;
+        p2 = K_ice * 0.9 * Math.PI * c * (KabDiam + c) * 0.980665 / 1000; // даН/м;
         p3 = p1 + p2; // даН/м;
-        p4 = alfa(q) * Cx * K_wind * q * KabDiam / 1000; // даН/м;
-        p5 = alfa((q * 0.25)) * Cx * K_wind * 0.25 * q * (KabDiam + 2 * c) / 1000; // даН/м;
+        p4 = alfa(q) * Cx * K_wind * K_wind(Distance) * q * KabDiam / 1000; // даН/м;
+        p5 = alfa((q * 0.25)) * Cx * K_wind  * K_wind(Distance) * 0.25 * q * (KabDiam + 2 * c) / 1000; // даН/м;
         p6 = Math.sqrt(p1*p1 + p4*p4); // даН/м;
         p7 = Math.sqrt(p3*p3 + p5*p5); // даН/м;
 
@@ -56,6 +56,7 @@ public class MountTable extends WireMechLoad {
         System.out.println("2 крит. проелет: " + Myformat.format(L2k) + "м");
         System.out.println("3 крит. проелет: " + Myformat.format(L3k) + "м");
         System.out.println(Distance);
+        System.out.println("K_wind(Distance) =" + K_wind(Distance));
 
 ///////////////////////////////////////////////////////
         if ((L1k < L2k) & (L2k < L3k) & (Distance < L1k)) {
@@ -111,14 +112,14 @@ public class MountTable extends WireMechLoad {
     }
 
     public double LoadCalc (double y, double yRef, double t, double tRef, double Gref, double Distance) {
-        double G = 1.00;
+        double G = 0.0001;
         double X;
 
         while (true) {
             X = G - ((y * y * ElastM * Distance * Distance) / (24 * G * G))
                     - Gref + ((Math.pow(yRef, 2) * ElastM * Distance * Distance) / (24 * Gref * Gref))
                     + (KLTE * ElastM * (t - tRef));
-            G = G + 0.001;
+            G = G + 0.0001;
             if (X > 0) {
                 break;
             }
@@ -130,11 +131,11 @@ public class MountTable extends WireMechLoad {
 
         MountLoad = LoadCalc(y1, Yref, Tempi, Ttef, Gref, Distance);
         Tension = MountLoad * CrSec;
-        Sag = y1 * Distance * Distance / (8 * MountLoad);
+        Sag = (y1 * Distance * Distance) / (8 * MountLoad);
 
         MountLoadIce = LoadCalc(y3, Yref, Tempi, Ttef, Gref, Distance);
         TensionIce = MountLoadIce * CrSec;
-        SagIce = y3 * Distance * Distance / (8 * MountLoadIce);
+        SagIce = (y3 * Distance * Distance) / (8 * MountLoadIce);
 
     }
 

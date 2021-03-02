@@ -144,7 +144,7 @@ public class ExcelGenerate {
         Mode4.createCell(8).setCellValue(MyF.format(Calc1.getSagMode4()));
         Mode4.createCell(10).setCellValue("0");
 
-
+        Calc1.printCalculation();
 
         File theDir = new File(FilePath);
         theDir.mkdirs();
